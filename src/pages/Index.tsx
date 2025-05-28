@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { FileText, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -32,14 +31,12 @@ const Index = () => {
         reader.readAsDataURL(uploadedImage);
       });
 
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      const response = await fetch('https://backend.buildpicoapps.com/aero/run/llm-api?pk=v1-Z0FBQUFBQm5HUEtMSjJkakVjcF9IQ0M0VFhRQ0FmSnNDSHNYTlJSblE0UXo1Q3RBcjFPcl9YYy1OZUhteDZWekxHdWRLM1M1alNZTkJMWEhNOWd4S1NPSDBTWC12M0U2UGc9PQ==', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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'
         },
         body: JSON.stringify({
-          model: "gpt-4o-mini",
           messages: [
             {
               role: "user",
@@ -78,8 +75,7 @@ Important rules:
                 }
               ]
             }
-          ],
-          max_tokens: 1000
+          ]
         })
       });
 
@@ -96,8 +92,8 @@ Important rules:
         }
       }
       
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        setAnalysis(data.choices[0].message.content);
+      if (data.message) {
+        setAnalysis(data.message);
         toast({
           title: "বিশ্লেষণ সম্পূর্ণ",
           description: "আপনার প্রেসক্রিপশনের ব্যাখ্যা প্রস্তুত।",
